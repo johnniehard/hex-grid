@@ -13,8 +13,10 @@
 
 <style>
     path {
-        fill: rgb(204, 17, 120);
-        stroke: rgb(253, 34, 154);
+        fill: rgba(0, 0, 0, 0);
+        /* fill: rgb(204, 17, 120); */
+        /* stroke: rgb(253, 34, 154); */
+        stroke: none;
         stroke-width: 2px;
         transition: fill 1s ease;
     }

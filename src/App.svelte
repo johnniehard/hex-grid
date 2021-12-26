@@ -4,10 +4,10 @@
 	import Hexagon from "./Hexagon.svelte";
 	import { hexGrid, hexHeight, hexWidth } from "./hexagon";
 
-	const r = 60;
+	const r = 10;
 
-	const width = 800;
-	const height = 800;
+	const width = 1100;
+	const height = 900;
 
 	const padding = 400;
 	const W = (width - padding) / r;
