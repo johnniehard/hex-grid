@@ -37,24 +37,3 @@ export function hexHeight(r: number) {
 }
 
 type Point = {x: number, y: number};
-
-export function hexGrid(W: number, H: number, r: number): Point[]{
-	const w = hexWidth(r);
-	const h = hexHeight(r);
-
-	const xDist = w * (3 / 4);
-	const yDist = h / 2;
-
-    const coords: Point[] = []
-
-    for(let y = 0; y < H; y++){
-        for(let x = 0; x < W; x++){
-            coords.push({
-                x: xDist * x,
-                y: x % 2 === 0 ? y * h : y * h + yDist,
-            })
-        }
-    }
-
-    return coords
-}

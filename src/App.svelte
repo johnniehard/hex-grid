@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { extendHex, defineGrid } from "honeycomb-grid";
+
 	import Svg from "./Svg.svelte";
 
 	import Hexagon from "./Hexagon.svelte";
-	import { hexGrid, hexHeight, hexWidth } from "./hexagon";
+	import { hexHeight, hexWidth } from "./hexagon";
 
 	const r = 10;
 
@@ -13,24 +15,25 @@
 	const W = (width - padding) / r;
 	const H = (height - padding) / r;
 
-	const gridWidth = hexWidth(r) * W * (3/4);
+	const gridWidth = hexWidth(r) * W * (3 / 4);
 	const gridHeight = hexHeight(r) * H;
 
-
-	const grid = hexGrid(W, H, r);
+	// const grid = hexGrid(W, H, r);
+	const Hex = extendHex({
+		size: r, // default: 1
+		orientation: "flat", // default: 'pointy'
+	});
+	const Grid = defineGrid(Hex);
+	const grid = Grid.rectangle({ width: W, height: H });
+	console.log(grid)
 </script>
 
 <main>
 	<Svg {width} {height}>
-		<!-- Udda ska ha y offset yDist
-		<Hexagon x={300} y={300} {r} />
-		<Hexagon x={300 + xDist} y={300 + yDist} {r} />
-		<Hexagon x={300 + xDist * 2} y={300} {r} /> -->
-
-		{#each grid as cell}
+		{#each grid.map(hex => hex.toPoint()) as cell}
 			<Hexagon
 				{r}
-				x={cell.x + width / 2 - gridWidth / 2 }
+				x={cell.x + width / 2 - gridWidth / 2}
 				y={cell.y + height / 2 - gridHeight / 2}
 			/>
 		{/each}
