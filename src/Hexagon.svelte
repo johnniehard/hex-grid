@@ -27,5 +27,7 @@
     .active {
         fill: rgb(253, 34, 154);
         transition: none;
+        transition: fill .4s ease;
+
     }
 </style>

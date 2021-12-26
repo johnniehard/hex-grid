@@ -71,10 +71,9 @@
 			}
 		});
 
-		// requestAnimationFrame(step);
 	}
 
-	step();
+	setInterval(step, 400)
 </script>
 
 <main>
@@ -82,6 +81,7 @@
 		{#each grid.map( (hex) => ({ hex, point: hex.toPoint() }) ) as { hex, point }}
 			<Hexagon
 				active={hex.alive}
+				on:click={() => hex.alive = true}
 				{r}
 				x={point.x + width / 2}
 				y={point.y + height / 2}
