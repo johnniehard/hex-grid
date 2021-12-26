@@ -16,10 +16,6 @@
 <style>
     path {
         fill: rgba(0, 0, 0, 0);
-        /* fill: rgb(204, 17, 120); */
-        stroke: rgba(253, 34, 154, 0.2);
-        /* stroke: none; */
-        stroke-width: 2px;
         transition: fill 1s ease;
     }
 
@@ -29,7 +25,7 @@
     }
 
     .active {
-        fill: steelblue;
+        fill: rgb(253, 34, 154);
         transition: none;
     }
 </style>
