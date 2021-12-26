@@ -28,12 +28,4 @@ export function coordsToPath(coords: Coords, closed = true): string {
     return path;
 }
 
-export function hexWidth(r: number) {
-    return 2 * r;
-}
-
-export function hexHeight(r: number) {
-    return Math.sqrt(3) * r;
-}
-
 type Point = {x: number, y: number};

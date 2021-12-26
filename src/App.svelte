@@ -4,28 +4,24 @@
 	import Svg from "./Svg.svelte";
 
 	import Hexagon from "./Hexagon.svelte";
-	import { hexHeight, hexWidth } from "./hexagon";
 
 	const r = 10;
 
 	const width = 1100;
 	const height = 900;
 
-	const padding = 400;
-	const W = (width - padding) / r;
-	const H = (height - padding) / r;
+	const W = width / (r * 2);
+	const H = height / (r * 2);
 
-	const gridWidth = hexWidth(r) * W * (3 / 4);
-	const gridHeight = hexHeight(r) * H;
-
-	// const grid = hexGrid(W, H, r);
 	const Hex = extendHex({
-		size: r, // default: 1
-		orientation: "flat", // default: 'pointy'
+		size: r,
+		orientation: "flat",
 	});
 	const Grid = defineGrid(Hex);
 	const grid = Grid.rectangle({ width: W, height: H });
-	console.log(grid)
+
+	const gridWidth = grid.pointWidth()
+	const gridHeight = grid.pointHeight()
 </script>
 
 <main>

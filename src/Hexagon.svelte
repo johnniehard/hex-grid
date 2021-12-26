@@ -4,12 +4,14 @@
     export let x: number;
     export let y: number;
     export let r: number;
+    // export let onclick: () => void;
+    export let active: boolean = false;
 
     const hex = hexagonCoords(x, y, r);
     const path = coordsToPath(hex);
 </script>
 
-<path d={path} />
+<path d={path} on:click on:mouseenter class={active ? "active" : ""} />
 
 <style>
     path {
@@ -23,6 +25,11 @@
 
     path:hover {
         fill: rgb(253, 34, 154);
+        transition: none;
+    }
+
+    .active {
+        fill: steelblue;
         transition: none;
     }
 </style>
