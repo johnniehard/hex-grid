@@ -16,16 +16,16 @@
 <style>
     path {
         fill: rgba(0, 0, 0, 0);
-        transition: fill 1s ease;
+        /* transition: fill 0.2s ease; */
     }
 
     path:hover {
         fill: rgb(253, 34, 154);
-        transition: none;
+        /* transition: none; */
     }
 
     .active {
         fill: rgb(253, 34, 154);
-        transition: none;
+        /* transition: none; */
     }
 </style>

@@ -5,6 +5,8 @@
 
 	import Hexagon from "./Hexagon.svelte";
 
+	import { neighbors } from "./neighbors";
+
 	const r = 10;
 
 	const width = 1200;
@@ -14,42 +16,57 @@
 		size: r,
 		orientation: "flat",
 		alive: false,
+		neighbors: [] as number[],
 	});
 
 	const W = width / Hex(0, 0).width();
 	const H = (height - 100) / Hex(0, 0).height();
 
 	const Grid = defineGrid(Hex);
-	let grid = Grid.rectangle({ width: W, height: H });
+	// let grid = Grid.rectangle({ width: W, height: H });
+	let grid = Grid.hexagon({ radius: 20 });
 
 	const gridWidth = grid.pointWidth();
 	const gridHeight = grid.pointHeight();
 
-	let neighbors = [];
-
-	grid = grid.map((hex) => {
-		hex.alive = Math.random() > 0.9;
+	grid = grid.map((hex, i) => {
+		hex.alive = Math.random() > 0.8;
+		hex.neighbors = neighbors[i]
 		return hex;
 	});
 
-	const neighborThreshold = 2;
+	// const n = grid.map((hex) => {
+	// 	return grid
+	// 		.neighborsOf(hex)
+	// 		.filter((f) => f)
+	// 		.map((hex) => grid.indexOf(hex));
+	// });
 
-	function step(){
+	// console.log(n);
+
+	function step() {
 		grid = grid.map((hex) => {
-			const neighbors = grid.neighborsOf(hex).filter(f => f)
-			const aliveNeighbors = neighbors.filter(n => n.alive)
-			if(aliveNeighbors.length === neighborThreshold){
-				hex.alive = true
+			const neighbors = hex.neighbors.map((n) => grid[n]);
+			const aliveNeighbors = neighbors.filter((n) => n.alive);
+			if(!hex.alive){
+				if (aliveNeighbors.length === 3 || aliveNeighbors.length === 5) {
+					hex.alive = true;
+				}
 			}
 
-			if(aliveNeighbors.length < neighborThreshold || aliveNeighbors.length > neighborThreshold){
-				hex.alive = false
+			if (
+				aliveNeighbors.length < 2 ||
+				aliveNeighbors.length > 4
+			) {
+				hex.alive = false;
 			}
-			return hex
-		})
+			return hex;
+		});
+
+		requestAnimationFrame(step)
 	}
 
-	step()
+	step();
 </script>
 
 <main>
@@ -58,8 +75,8 @@
 			<Hexagon
 				active={hex.alive}
 				{r}
-				x={point.x + width / 2 - gridWidth / 2}
-				y={point.y + height / 2 - gridHeight / 2}
+				x={point.x + width / 2}
+				y={point.y + height / 2}
 			/>
 		{/each}
 	</Svg>
