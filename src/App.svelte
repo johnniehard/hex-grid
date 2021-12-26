@@ -7,16 +7,17 @@
 
 	const r = 10;
 
-	const width = 1100;
+	const width = 1200;
 	const height = 900;
-
-	const W = width / (r * 2);
-	const H = height / (r * 2);
 
 	const Hex = extendHex({
 		size: r,
 		orientation: "flat",
 	});
+
+	const W = width / Hex(0, 0).width();
+	const H = (height - 100) /  Hex(0, 0).height();
+
 	const Grid = defineGrid(Hex);
 	const grid = Grid.rectangle({ width: W, height: H });
 
