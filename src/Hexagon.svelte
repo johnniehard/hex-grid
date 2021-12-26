@@ -1,6 +1,7 @@
 <script lang="ts">
-    export let width: number = 30;
-    export let height: number = 30;
+    export let x: number;
+    export let y: number;
+    export let r: number;
 
     type Coords = Array<[number, number]>;
 
@@ -25,35 +26,29 @@
             path += `L ${c[0]} ${c[1]} `;
         });
 
-        if(closed){
+        if (closed) {
             path += `L ${coords[0][0]} ${coords[0][1]} `;
         }
 
         return path;
     }
 
-    const hex = hexagon(width / 2, height / 2, width / 2);
+    const hex = hexagon(x, y, r);
     const path = coordsToPath(hex);
 
-    console.log(hex)
-    console.log(path)
 </script>
 
-<svg width={`${width}px`} height={`${height}px`} viewBox={`0 0 ${width} ${height}`}>
-    <path d={path} />
-</svg>
+<path d={path} />
 
 <style>
     path {
         fill: rgb(204, 17, 120);
         stroke: white;
         stroke-width: 2px;
-        transition: fill .3s ease;
+        transition: fill 0.3s ease;
     }
 
     path:hover {
         fill: rgb(248, 132, 196);
-        stroke: white;
-        stroke-width: 2px;
     }
 </style>
