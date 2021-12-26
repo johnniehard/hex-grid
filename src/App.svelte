@@ -30,8 +30,8 @@
 	const gridHeight = grid.pointHeight();
 
 	grid = grid.map((hex, i) => {
-		hex.alive = Math.random() > 0.8;
-		hex.neighbors = neighbors[i]
+		hex.alive = Math.random() > 0.996;
+		hex.neighbors = neighbors[i];
 		return hex;
 	});
 
@@ -45,25 +45,28 @@
 	// console.log(n);
 
 	function step() {
-		grid = grid.map((hex) => {
-			const neighbors = hex.neighbors.map((n) => grid[n]);
+		// grid = grid.map((hex) => {
+		for (let i = 0; i < grid.length; i++) {
+			const neighbors = grid[i].neighbors.map((n) => grid[n]);
 			const aliveNeighbors = neighbors.filter((n) => n.alive);
-			if(!hex.alive){
-				if (aliveNeighbors.length === 3 || aliveNeighbors.length === 5) {
-					hex.alive = true;
+
+			if(!grid[i].alive){
+				if (aliveNeighbors.length === 2) {
+					grid[i].alive = true;
 				}
 			}
 
-			if (
-				aliveNeighbors.length < 2 ||
-				aliveNeighbors.length > 4
-			) {
-				hex.alive = false;
+			if(grid[i].alive){
+				if (aliveNeighbors.length !== 2 && aliveNeighbors.length !== 4) {
+					grid[i].alive = false;
+				}
 			}
-			return hex;
-		});
 
-		requestAnimationFrame(step)
+			// return hex;
+		}
+		// });
+
+		// requestAnimationFrame(step);
 	}
 
 	step();
