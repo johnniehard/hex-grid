@@ -30,7 +30,7 @@
 	const gridHeight = grid.pointHeight();
 
 	grid = grid.map((hex, i) => {
-		hex.alive = Math.random() > 0.996;
+		hex.alive = Math.random() > 0.95;
 		hex.neighbors = neighbors[i];
 		return hex;
 	});
@@ -44,27 +44,32 @@
 
 	// console.log(n);
 
+	function clone<T>(x: T): T {
+		return JSON.parse(JSON.stringify(x)) as T;
+	}
+
 	function step() {
-		// grid = grid.map((hex) => {
-		for (let i = 0; i < grid.length; i++) {
-			const neighbors = grid[i].neighbors.map((n) => grid[n]);
+		const prevGrid = clone(grid);
+		grid = grid.map((hex, i) => {
+			const prevHex = prevGrid[i];
+			const neighbors = prevHex.neighbors.map((n) => prevGrid[n]);
 			const aliveNeighbors = neighbors.filter((n) => n.alive);
+			const alive = prevHex.alive;
 
-			if(!grid[i].alive){
-				if (aliveNeighbors.length === 2) {
-					grid[i].alive = true;
+			if (!alive) {
+				if ([2].includes(aliveNeighbors.length)) {
+					hex.alive = true;
+					return hex;
 				}
 			}
 
-			if(grid[i].alive){
-				if (aliveNeighbors.length !== 2 && aliveNeighbors.length !== 4) {
-					grid[i].alive = false;
-				}
+			if ([2, 4].includes(aliveNeighbors.length)) {
+				return hex;
+			} else {
+				hex.alive = false;
+				return hex;
 			}
-
-			// return hex;
-		}
-		// });
+		});
 
 		// requestAnimationFrame(step);
 	}
