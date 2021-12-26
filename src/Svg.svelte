@@ -10,3 +10,12 @@
 >
     <slot />
 </svg>
+
+<style>
+    svg {
+        display: block;
+        /* border: 1px solid white; */
+        max-width: 100%;
+        height: auto;
+    }
+</style>

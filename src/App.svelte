@@ -2,21 +2,38 @@
 	import Svg from "./Svg.svelte";
 
 	import Hexagon from "./Hexagon.svelte";
+	import { hexGrid, hexHeight, hexWidth } from "./hexagon";
 
 	const r = 60;
-	const w = 2 * r;
-	const h = Math.sqrt(3) * r;
 
-	const xDist = w * (3 / 4);
-	const yDist = h / 2;
+	const width = 800;
+	const height = 800;
+
+	const padding = 400;
+	const W = (width - padding) / r;
+	const H = (height - padding) / r;
+
+	const gridWidth = hexWidth(r) * W * (3/4);
+	const gridHeight = hexHeight(r) * H;
+
+
+	const grid = hexGrid(W, H, r);
 </script>
 
 <main>
-	<Svg width={800} height={800}>
-		<!-- Udda ska ha y offset yDist -->
+	<Svg {width} {height}>
+		<!-- Udda ska ha y offset yDist
 		<Hexagon x={300} y={300} {r} />
 		<Hexagon x={300 + xDist} y={300 + yDist} {r} />
-		<Hexagon x={300 + xDist * 2} y={300} {r} />
+		<Hexagon x={300 + xDist * 2} y={300} {r} /> -->
+
+		{#each grid as cell}
+			<Hexagon
+				{r}
+				x={cell.x + width / 2 - gridWidth / 2 }
+				y={cell.y + height / 2 - gridHeight / 2}
+			/>
+		{/each}
 	</Svg>
 </main>
 
