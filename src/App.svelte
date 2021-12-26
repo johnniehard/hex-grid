@@ -13,36 +13,57 @@
 	const Hex = extendHex({
 		size: r,
 		orientation: "flat",
+		alive: false,
 	});
 
 	const W = width / Hex(0, 0).width();
 	const H = (height - 100) / Hex(0, 0).height();
 
 	const Grid = defineGrid(Hex);
-	const grid = Grid.rectangle({ width: W, height: H });
+	let grid = Grid.rectangle({ width: W, height: H });
 
 	const gridWidth = grid.pointWidth();
 	const gridHeight = grid.pointHeight();
 
 	let neighbors = [];
-	$: stringNeighbors = neighbors.map(n => JSON.stringify(n));
 
+	grid = grid.map((hex) => {
+		hex.alive = Math.random() > 0.9;
+		return hex;
+	});
+
+	const neighborThreshold = 2;
+
+	function step(){
+		grid = grid.map((hex) => {
+			const neighbors = grid.neighborsOf(hex).filter(f => f)
+			const aliveNeighbors = neighbors.filter(n => n.alive)
+			if(aliveNeighbors.length === neighborThreshold){
+				hex.alive = true
+			}
+
+			if(aliveNeighbors.length < neighborThreshold || aliveNeighbors.length > neighborThreshold){
+				hex.alive = false
+			}
+			return hex
+		})
+	}
+
+	step()
 </script>
 
 <main>
 	<Svg {width} {height}>
 		{#each grid.map( (hex) => ({ hex, point: hex.toPoint() }) ) as { hex, point }}
 			<Hexagon
-				on:mouseenter={() => {
-					neighbors = grid.neighborsOf(hex);
-				}}
-				active={stringNeighbors.includes(JSON.stringify(hex))}
+				active={hex.alive}
 				{r}
 				x={point.x + width / 2 - gridWidth / 2}
 				y={point.y + height / 2 - gridHeight / 2}
 			/>
 		{/each}
 	</Svg>
+	<button on:click={() => step()}>step</button>
 </main>
 
 <style>
