@@ -73,7 +73,7 @@
 			<Hexagon
 				active={hex.alive}
 				showOutline={!play}
-				on:click={() => (hex.alive = true)}
+				on:click={() => (hex.alive = !hex.alive)}
 				{r}
 				x={point.x + width / 2}
 				y={point.y + height / 2}
