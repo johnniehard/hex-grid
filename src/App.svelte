@@ -9,8 +9,8 @@
 
 	const r = 10;
 
-	const width = 1200;
-	const height = 900;
+	const width = 1000;
+	const height = 1000;
 
 	const Hex = extendHex({
 		size: r,
@@ -88,7 +88,7 @@
 			/>
 		{/each}
 	</Svg>
-	<button on:click={() => step()}>step</button>
+	<!-- <button on:click={() => step()}>step</button> -->
 </main>
 
 <style>

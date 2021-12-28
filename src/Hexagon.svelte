@@ -16,7 +16,7 @@
 <style>
     path {
         fill: rgba(0, 0, 0, 0);
-        transition: fill 1s ease;
+        /* transition: fill 0.15s ease; */
     }
 
     path:hover {
@@ -27,7 +27,6 @@
     .active {
         fill: rgb(253, 34, 154);
         transition: none;
-        transition: fill .4s ease;
-
+        /* transition: fill .15s ease; */
     }
 </style>
