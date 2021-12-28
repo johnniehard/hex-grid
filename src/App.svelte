@@ -9,6 +9,9 @@
 	const width = 1000;
 	const height = 1000;
 
+	const b = [2];
+	const s = [2, 4];
+
 	let grid = gridSetup(r, 20);
 
 	grid = grid.map((hex, i) => {
@@ -17,7 +20,7 @@
 		return hex;
 	});
 
-	function life(inputGrid: OurGrid) {
+	function life(inputGrid: OurGrid, b: number[], s: number[]) {
 		const prevGrid = clone(inputGrid);
 		const newGrid = inputGrid.map((hex, i) => {
 			const prevHex = prevGrid[i];
@@ -26,13 +29,13 @@
 			const alive = prevHex.alive;
 
 			if (!alive) {
-				if ([2].includes(aliveNeighbors.length)) {
+				if (b.includes(aliveNeighbors.length)) {
 					hex.alive = true;
 					return hex;
 				}
 			}
 
-			if ([2, 4].includes(aliveNeighbors.length)) {
+			if (s.includes(aliveNeighbors.length)) {
 				return hex;
 			} else {
 				hex.alive = false;
@@ -44,7 +47,7 @@
 	}
 
 	function step() {
-		grid = life(grid);
+		grid = life(grid, b, s);
 	}
 
 	setInterval(step, 100);
