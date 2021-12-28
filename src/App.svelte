@@ -20,9 +20,10 @@
 		return hex;
 	});
 
-	function step() {
-		const prevGrid = clone(grid);
-		grid = grid.map((hex, i) => {
+	function life(inputGrid: typeof grid) {
+		// Nasty indexing of prevGrid needed below because cloning with JSON.stringify throws away a lot of things.
+		const prevGrid = clone(inputGrid);
+		const newGrid = inputGrid.map((hex, i) => {
 			const prevHex = prevGrid[i];
 			const neighbors = prevHex.neighbors.map((n) => prevGrid[n]);
 			const aliveNeighbors = neighbors.filter((n) => n.alive);
@@ -42,6 +43,12 @@
 				return hex;
 			}
 		});
+
+		return newGrid
+	}
+
+	function step() {
+		grid = life(grid)
 	}
 
 	setInterval(step, 100);
