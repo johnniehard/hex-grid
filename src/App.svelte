@@ -18,7 +18,7 @@
 	clear()
 
 	$: if (play) {
-		interval = setInterval(step, 100);
+		interval = setInterval(step, 200);
 	} else if (interval !== null) {
 		clearInterval(interval);
 		interval = null;
@@ -72,6 +72,7 @@
 		{#each grid.map( (hex) => ({ hex, point: hex.toPoint() }) ) as { hex, point }}
 			<Hexagon
 				active={hex.alive}
+				showOutline={!play}
 				on:click={() => (hex.alive = true)}
 				{r}
 				x={point.x + width / 2}
@@ -81,7 +82,6 @@
 	</Svg>
 	<button on:click={togglePlay}>{play ? "stop" : "play"}</button>
 	<button on:click={clear}>clear</button>
-	<!-- <button on:click={() => step()}>step</button> -->
 </main>
 
 <style>
