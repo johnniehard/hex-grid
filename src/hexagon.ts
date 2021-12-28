@@ -1,4 +1,20 @@
+import { defineGrid, extendHex } from "honeycomb-grid";
+
 type Coords = Array<[number, number]>;
+
+export const ourHex = (r: number) => extendHex({
+    size: r,
+    orientation: "flat",
+    alive: false,
+    neighbors: [] as number[],
+});
+
+
+export function gridSetup(hexRadius: number, gridRadius: number) {
+    const Hex = ourHex(hexRadius);
+    const Grid = defineGrid(Hex);
+    return Grid.hexagon({ radius: gridRadius });
+}
 
 export function hexagonCoords(x: number, y: number, r: number): Coords {
     const coords: Coords = [];
@@ -28,4 +44,4 @@ export function coordsToPath(coords: Coords, closed = true): string {
     return path;
 }
 
-type Point = {x: number, y: number};
+type Point = { x: number, y: number };
