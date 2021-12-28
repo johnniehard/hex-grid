@@ -1,6 +1,13 @@
-import { defineGrid, extendHex } from "honeycomb-grid";
+import { defineGrid, extendHex, Grid, Hex } from "honeycomb-grid";
 
 type Coords = Array<[number, number]>;
+
+export type OurGrid = Grid<Hex<{
+    size: number;
+    orientation: "flat";
+    alive: boolean;
+    neighbors: number[];
+}>>
 
 export const ourHex = (r: number) => extendHex({
     size: r,

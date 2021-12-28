@@ -2,8 +2,8 @@
 	import Svg from "./Svg.svelte";
 	import Hexagon from "./Hexagon.svelte";
 	import { neighbors } from "./neighbors_20";
-	import { gridSetup } from "./hexagon";
-	import clone from 'just-clone';
+	import { gridSetup, OurGrid } from "./hexagon";
+	import clone from "just-clone";
 
 	const r = 10;
 	const width = 1000;
@@ -17,7 +17,7 @@
 		return hex;
 	});
 
-	function life(inputGrid: typeof grid) {
+	function life(inputGrid: OurGrid) {
 		const prevGrid = clone(inputGrid);
 		const newGrid = inputGrid.map((hex, i) => {
 			const prevHex = prevGrid[i];
@@ -40,11 +40,11 @@
 			}
 		});
 
-		return newGrid
+		return newGrid;
 	}
 
 	function step() {
-		grid = life(grid)
+		grid = life(grid);
 	}
 
 	setInterval(step, 100);
