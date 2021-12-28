@@ -3,10 +3,7 @@
 	import Hexagon from "./Hexagon.svelte";
 	import { neighbors } from "./neighbors_20";
 	import { gridSetup } from "./hexagon";
-
-	function clone<T>(x: T): T {
-		return JSON.parse(JSON.stringify(x)) as T;
-	}
+	import clone from 'just-clone';
 
 	const r = 10;
 	const width = 1000;
@@ -21,7 +18,6 @@
 	});
 
 	function life(inputGrid: typeof grid) {
-		// Nasty indexing of prevGrid needed below because cloning with JSON.stringify throws away a lot of things.
 		const prevGrid = clone(inputGrid);
 		const newGrid = inputGrid.map((hex, i) => {
 			const prevHex = prevGrid[i];
