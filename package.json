@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev": "PUBLIC_URL=. rollup -c -w",
     "start": "sirv public --no-clear",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
@@ -25,6 +25,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@rollup/plugin-replace": "^3.0.1",
     "honeycomb-grid": "^3.1.8",
     "sirv-cli": "^1.0.0"
   }
