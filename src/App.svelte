@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Svg from "./Svg.svelte";
 	import Hexagon from "./Hexagon.svelte";
-	import { neighbors } from "./neighbors_20";
 	import { gridSetup, OurGrid } from "./hexagon";
 	import clone from "just-clone";
 	import queryString from "query-string";
@@ -13,17 +12,16 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
-	// TODO: Get width/height from grid (pointHeight)
-
 	const r = 10;
-	const width = 1000;
-	const height = 1000;
 	const birthRule = [2];
 	const survivalRule = [2, 4];
 
-	let grid: OurGrid;
+	let grid = gridSetup(r);
 	let play = false;
 	let interval: ReturnType<typeof setInterval> | null = null;
+
+	const width = grid.pointWidth();
+	const height = grid.pointHeight();
 
 	let seed = [];
 
@@ -57,13 +55,14 @@
 		history.replaceState(
 			null,
 			null,
-			'?' + queryString.stringify(
-				{ seed },
-				{
-					arrayFormat: "bracket-separator",
-					arrayFormatSeparator: ",",
-				}
-			)
+			"?" +
+				queryString.stringify(
+					{ seed },
+					{
+						arrayFormat: "bracket-separator",
+						arrayFormatSeparator: ",",
+					}
+				)
 		);
 	}
 
@@ -103,12 +102,8 @@
 
 	function clear(clearSeed = true) {
 		play = false;
-		grid = gridSetup(r, 20);
+		grid = gridSetup(r);
 		seed = clearSeed ? [] : seed;
-		grid = grid.map((hex, i) => {
-			hex.neighbors = neighbors[i];
-			return hex;
-		});
 	}
 
 	// TODO: Make this a pure function (grid) => grid, and move it to hexagon.ts

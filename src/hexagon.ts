@@ -1,4 +1,7 @@
 import { defineGrid, extendHex, Grid, Hex } from "honeycomb-grid";
+import { neighbors } from "./neighbors_20";
+
+const gridRadius = 20;
 
 type Coords = Array<[number, number]>;
 
@@ -17,10 +20,15 @@ export const ourHex = (r: number) => extendHex({
 });
 
 
-export function gridSetup(hexRadius: number, gridRadius: number) {
+export function gridSetup(hexRadius: number) {
     const Hex = ourHex(hexRadius);
     const Grid = defineGrid(Hex);
-    return Grid.hexagon({ radius: gridRadius });
+    let grid = Grid.hexagon({ radius: gridRadius });
+    grid = grid.map((hex, i) => {
+        hex.neighbors = neighbors[i];
+        return hex;
+    });
+    return grid
 }
 
 export function hexagonCoords(x: number, y: number, r: number): Coords {
