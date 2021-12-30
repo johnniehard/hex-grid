@@ -4,13 +4,14 @@
 	import { neighbors } from "./neighbors_20";
 	import { gridSetup, OurGrid } from "./hexagon";
 	import clone from "just-clone";
+	import queryString from "query-string";
 
 	// TODO: Layout isolated component
 	// Make a component Life that takes grid parameters like radius and seed,
 	// and exposes functions like clear, togglePlay etc.
 	// This way we can more easily do things like show thumbnails of seeds,
 	// play multiple grids at once, or show a none-interactive grid that cycles between
-	// playing different seeds.
+	// playing different seeds (at different speeds).
 
 	// TODO: Get width/height from grid (pointHeight)
 
@@ -23,15 +24,47 @@
 	let grid: OurGrid;
 	let play = false;
 	let interval: ReturnType<typeof setInterval> | null = null;
+
 	let seed = [];
 
-	clear();
+	const qs = queryString.parse(location.search, {
+		parseNumbers: true,
+		arrayFormat: "bracket-separator",
+		arrayFormatSeparator: ",",
+	});
+
+	if (qs.seed && Array.isArray(qs.seed)) {
+		seed = (qs.seed as any[]).filter(
+			(x) => !isNaN(parseInt(x))
+		) as number[];
+	}
+
+	if (seed.length > 0) {
+		clear(false);
+		setSeed(seed);
+	} else {
+		clear();
+	}
 
 	$: if (play) {
 		interval = setInterval(step, 200);
 	} else if (interval !== null) {
 		clearInterval(interval);
 		interval = null;
+	}
+
+	$: if (seed) {
+		history.replaceState(
+			null,
+			null,
+			'?' + queryString.stringify(
+				{ seed },
+				{
+					arrayFormat: "bracket-separator",
+					arrayFormatSeparator: ",",
+				}
+			)
+		);
 	}
 
 	function life(inputGrid: OurGrid, birth: number[], survival: number[]) {
