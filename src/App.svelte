@@ -5,6 +5,15 @@
 	import { gridSetup, OurGrid } from "./hexagon";
 	import clone from "just-clone";
 
+	// TODO: Layout isolated component
+	// Make a component Life that takes grid parameters like radius and seed,
+	// and exposes functions like clear, togglePlay etc.
+	// This way we can more easily do things like show thumbnails of seeds,
+	// play multiple grids at once, or show a none-interactive grid that cycles between
+	// playing different seeds.
+
+	// TODO: Get width/height from grid (pointHeight)
+
 	const r = 10;
 	const width = 1000;
 	const height = 1000;
@@ -69,6 +78,7 @@
 		});
 	}
 
+	// TODO: Make this a pure function (grid) => grid, and move it to hexagon.ts
 	function setSeed(seed: number[]) {
 		grid = grid.map((hex, i) => {
 			hex.alive = seed.includes(i);
