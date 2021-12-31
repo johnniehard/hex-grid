@@ -27,10 +27,10 @@
     }
     
     path:hover {
-        fill: rgb(253, 34, 154);
+        fill: rgb(182, 90, 140);
     }
     
     .active {
-        fill: rgb(253, 34, 154);
+        fill: rgb(253, 34, 154) !important;
     }
 </style>
