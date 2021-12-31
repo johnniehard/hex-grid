@@ -36,7 +36,7 @@
 		seed = (qs.seed as any[]).filter(
 			(x) => !isNaN(parseInt(x))
 		) as number[];
-		play = true;
+		play = seed.length > 0;
 	}
 
 	if (seed.length > 0) {
