@@ -12,9 +12,6 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
-	// TODO: Only show grid outline on reset or clear
-	// Pausing should only pause, not show the grid.
-
 	// TODO: Use requestAnimationframe to avoid rendering while not the active tab
 
 	const r = 10;
@@ -24,6 +21,7 @@
 	let grid = gridSetup(r);
 	let play = false;
 	let interval: ReturnType<typeof setInterval> | null = null;
+	let generations = 0;
 
 	const width = grid.pointWidth();
 	const height = grid.pointHeight();
@@ -49,6 +47,8 @@
 	} else {
 		clear();
 	}
+
+	$: showGrid = generations === 0
 
 	$: if (play) {
 		interval = setInterval(step, 200);
@@ -100,6 +100,7 @@
 
 	function step() {
 		grid = life(grid, birthRule, survivalRule);
+		generations += 1;
 	}
 
 	function togglePlay() {
@@ -111,6 +112,7 @@
 	}
 
 	function clear(clearSeed = true) {
+		generations = 0;
 		grid = gridSetup(r);
 		seed = clearSeed ? [] : seed;
 	}
@@ -135,7 +137,7 @@
 		{#each grid.map( (hex) => ({ hex, point: hex.toPoint() }) ) as { hex, point }, i}
 			<Hexagon
 				active={hex.alive}
-				showOutline={!play}
+				showOutline={showGrid}
 				on:click={() => {
 					hex.alive = !hex.alive;
 					if (!play) {
