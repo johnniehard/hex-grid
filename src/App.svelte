@@ -12,6 +12,11 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
+	// TODO: Only show grid outline on reset or clear
+	// Pausing should only pause, not show the grid.
+
+	// TODO: Use requestAnimationframe to avoid rendering while not the active tab
+
 	const r = 10;
 	const birthRule = [2];
 	const survivalRule = [2, 4];
@@ -35,6 +40,7 @@
 		seed = (qs.seed as any[]).filter(
 			(x) => !isNaN(parseInt(x))
 		) as number[];
+		play = true;
 	}
 
 	if (seed.length > 0) {
@@ -100,8 +106,11 @@
 		play = !play;
 	}
 
-	function clear(clearSeed = true) {
+	function pause() {
 		play = false;
+	}
+
+	function clear(clearSeed = true) {
 		grid = gridSetup(r);
 		seed = clearSeed ? [] : seed;
 	}
@@ -117,6 +126,7 @@
 	function reset() {
 		clear(false);
 		setSeed(seed);
+		pause();
 	}
 </script>
 
@@ -142,9 +152,17 @@
 			/>
 		{/each}
 	</Svg>
-	<button on:click={togglePlay}>{play ? "stop" : "play"}</button>
-	<button on:click={() => clear()}>clear</button>
+	<button
+	on:click={() => {
+		clear();
+		pause();
+	}}>clear</button
+	>
 	<button on:click={reset}>reset</button>
+	<button on:click={togglePlay}>{play ? "pause" : "play"}</button>
+	{#if !play}
+		<button on:click={step}>step</button>
+	{/if}
 </main>
 
 <style>
