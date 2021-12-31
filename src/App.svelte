@@ -12,8 +12,6 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
-	// TODO: Use requestAnimationframe to avoid rendering while not the active tab
-
 	const r = 10;
 	const birthRule = [2];
 	const survivalRule = [2, 4];
