@@ -9,7 +9,7 @@
     export let birthRule = [2];
     export let survivalRule = [2, 4];
     export let showGrid = false;
-    export let onCellClick: (i: number, alive: boolean) => void;
+    export let onCellClick: (i: number, alive: boolean) => void = null;
     export let clickable = false;
     export let seed: number[];
 

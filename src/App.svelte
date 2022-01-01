@@ -8,6 +8,8 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
+	const SHOW_GALLERY_ITEM = false;
+
 	const r = 10;
 
 	let play = false;
@@ -100,7 +102,14 @@
 </script>
 
 <main>
-	<Life bind:this={life} {r} {showGrid} clickable onCellClick={handleCellClick} {seed} />
+	<Life
+		bind:this={life}
+		{r}
+		{showGrid}
+		clickable
+		onCellClick={handleCellClick}
+		{seed}
+	/>
 	<button
 		on:click={() => {
 			clear();
@@ -112,6 +121,27 @@
 	{#if !play}
 		<button on:click={step}>step</button>
 	{/if}
+	{#if SHOW_GALLERY_ITEM}
+		<div
+			class="gallery item"
+			on:click={() => {
+				seed = [
+					633, 750, 673, 712, 830, 558, 339, 369, 722, 1027, 396, 395,
+					431,
+				];
+				reset();
+			}}
+		>
+			<Life
+				{r}
+				showGrid={false}
+				seed={[
+					633, 750, 673, 712, 830, 558, 339, 369, 722, 1027, 396, 395,
+					431,
+				]}
+			/>
+		</div>
+	{/if}
 </main>
 
 <style>
@@ -121,5 +151,12 @@
 
 		display: grid;
 		place-items: center;
+	}
+
+	.gallery.item {
+		width: 100px;
+		border: 1px solid rgba(253, 34, 154, 0.4);
+		border-radius: 5px;
+		cursor: pointer;
 	}
 </style>
