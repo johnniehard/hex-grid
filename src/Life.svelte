@@ -9,6 +9,8 @@
     export let birthRule = [2];
     export let survivalRule = [2, 4];
     export let showGrid = false;
+    export let onCellClick: (i: number, alive: boolean) => void
+    export let clickable = false;
 
     let grid = gridSetup(r);
 
@@ -64,14 +66,9 @@
             active={hex.alive}
             showOutline={showGrid}
             on:click={() => {
+                if(!onCellClick || !clickable) return
                 hex.alive = !hex.alive;
-                // if (!play) {
-                //     if (hex.alive) {
-                //         seed = [...seed, i];
-                //     } else {
-                //         seed = seed.filter((s) => s !== i);
-                //     }
-                // }
+                onCellClick && onCellClick(i, hex.alive)
             }}
             {r}
             x={point.x + width / 2}
