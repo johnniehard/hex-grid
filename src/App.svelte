@@ -8,8 +8,6 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
-	// TODO: Life should take seed as prop and set seed when it changes.
-
 	const r = 10;
 
 	let play = false;
@@ -18,7 +16,7 @@
 
 	let life: Life;
 
-	let seed = [];
+	let seed;
 
 	onMount(() => {
 		// TODO: Break out qs get/set from the logic re what to do with the data
@@ -32,12 +30,10 @@
 			seed = (qs.seed as any[]).filter(
 				(x) => !isNaN(parseInt(x))
 			) as number[];
-			play = seed.length > 0;
 		}
 
 		if (seed.length > 0) {
 			clear(false);
-			life.setSeed(seed);
 		} else {
 			clear();
 		}
@@ -104,7 +100,7 @@
 </script>
 
 <main>
-	<Life bind:this={life} {r} {showGrid} clickable onCellClick={handleCellClick} />
+	<Life bind:this={life} {r} {showGrid} clickable onCellClick={handleCellClick} {seed} />
 	<button
 		on:click={() => {
 			clear();

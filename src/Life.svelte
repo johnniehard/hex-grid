@@ -9,13 +9,18 @@
     export let birthRule = [2];
     export let survivalRule = [2, 4];
     export let showGrid = false;
-    export let onCellClick: (i: number, alive: boolean) => void
+    export let onCellClick: (i: number, alive: boolean) => void;
     export let clickable = false;
+    export let seed: number[];
 
     let grid = gridSetup(r);
 
     const width = grid.pointWidth();
     const height = grid.pointHeight();
+
+    $: if (seed) {
+        setSeed(seed);
+    }
 
     export function step() {
         grid = life(grid, birthRule, survivalRule);
@@ -66,9 +71,9 @@
             active={hex.alive}
             showOutline={showGrid}
             on:click={() => {
-                if(!onCellClick || !clickable) return
+                if (!onCellClick || !clickable) return;
                 hex.alive = !hex.alive;
-                onCellClick && onCellClick(i, hex.alive)
+                onCellClick && onCellClick(i, hex.alive);
             }}
             {r}
             x={point.x + width / 2}
