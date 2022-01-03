@@ -8,6 +8,8 @@
 	// play multiple grids at once, or show a none-interactive grid that cycles between
 	// playing different seeds (at different speeds).
 
+	// TODO: Plot total population
+
 	const SHOW_GALLERY_ITEM = false;
 
 	const r = 10;
