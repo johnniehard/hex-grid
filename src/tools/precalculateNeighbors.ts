@@ -1,6 +1,6 @@
 import { gridSetup } from '../hexagon'
 
-const grid = gridSetup(1, 20)
+const grid = gridSetup(1)
 
 const n = grid.map((hex) => {
     return grid
