@@ -79,6 +79,7 @@ export default {
 		production && terser(),
 		replace({
 			'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
+			preventAssignment: true,
 		}),
 	],
 	watch: {
