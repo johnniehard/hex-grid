@@ -36,7 +36,7 @@
 			) as number[];
 		}
 
-		if (seed.length > 0) {
+		if (seed && seed.length > 0) {
 			clear(false);
 		} else {
 			clear();
