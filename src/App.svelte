@@ -113,16 +113,17 @@
 		{seed}
 	/>
 	<button
+		disabled={seed?.length === 0}
 		on:click={() => {
 			clear();
 			pause();
 		}}>clear</button
 	>
-	<button on:click={reset}>reset</button>
-	<button on:click={togglePlay}>{play ? "pause" : "play"}</button>
-	{#if !play}
-		<button on:click={step}>step</button>
-	{/if}
+	<button disabled={seed?.length === 0} on:click={reset}>reset</button>
+	<button disabled={seed?.length === 0} on:click={togglePlay}>
+		{play ? "pause" : "play"}
+	</button>
+	<button disabled={!play && seed?.length === 0} on:click={step}>step</button>
 	{#if SHOW_GALLERY_ITEM}
 		<div
 			class="gallery item"
