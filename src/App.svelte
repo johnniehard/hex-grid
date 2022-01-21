@@ -1,7 +1,7 @@
 <script lang="ts">
-	import queryString from "query-string";
 	import { onMount } from "svelte";
 	import Life from "./Life.svelte";
+	import { getQueryString, setQueryString } from "./querystring";
 
 	// TODO: Seed gallery
 	// Thumbnails of seeds. Click to set main grid seed.
@@ -23,12 +23,7 @@
 	let seed;
 
 	onMount(() => {
-		// TODO: Break out qs get/set from the logic re what to do with the data
-		const qs = queryString.parse(location.search, {
-			parseNumbers: true,
-			arrayFormat: "bracket-separator",
-			arrayFormatSeparator: ",",
-		});
+		const qs = getQueryString();
 
 		if (qs.seed && Array.isArray(qs.seed)) {
 			seed = (qs.seed as any[]).filter(
@@ -53,18 +48,7 @@
 	}
 
 	$: if (seed) {
-		history.replaceState(
-			null,
-			null,
-			"?" +
-				queryString.stringify(
-					{ seed },
-					{
-						arrayFormat: "bracket-separator",
-						arrayFormatSeparator: ",",
-					}
-				)
-		);
+		setQueryString({ seed });
 	}
 
 	function step() {
