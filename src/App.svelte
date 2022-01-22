@@ -4,10 +4,9 @@
 	import Life from "./Life.svelte";
 	import { getQueryString, setQueryString } from "./querystring";
 
-	// TODO: Seed gallery
-	// Thumbnails of seeds. Click to set main grid seed.
-	// play multiple grids at once, or show a none-interactive grid that cycles between
-	// playing different seeds (at different speeds).
+	// TODO: Mark currently selected gallery seed
+
+	// TODO: Nicer buttons
 
 	// TODO: Plot total population
 
