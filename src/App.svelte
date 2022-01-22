@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import Gallery from "./Gallery.svelte";
 	import Life from "./Life.svelte";
 	import { getQueryString, setQueryString } from "./querystring";
 
@@ -10,7 +11,7 @@
 
 	// TODO: Plot total population
 
-	const SHOW_GALLERY_ITEM = false;
+	const SHOW_GALLERY_ITEM = true;
 
 	const r = 10;
 
@@ -107,27 +108,15 @@
 	<button disabled={seed?.length === 0} on:click={togglePlay}>
 		{play ? "pause" : "play"}
 	</button>
-	<button disabled={!play && seed?.length === 0} on:click={step}>step</button>
+	<button disabled={play || seed?.length === 0} on:click={step}>step</button>
 	{#if SHOW_GALLERY_ITEM}
-		<div
-			class="gallery item"
-			on:click={() => {
-				seed = [
-					633, 750, 673, 712, 830, 558, 339, 369, 722, 1027, 396, 395,
-					431,
-				];
+		<Gallery
+			itemClicked={(_seed) => {
+				seed = _seed;
 				reset();
 			}}
-		>
-			<Life
-				{r}
-				showGrid={false}
-				seed={[
-					633, 750, 673, 712, 830, 558, 339, 369, 722, 1027, 396, 395,
-					431,
-				]}
-			/>
-		</div>
+			{r}
+		/>
 	{/if}
 </main>
 
