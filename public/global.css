@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-	color: var(--secondary-color);
+	color: var(--main-color);
 	background: var(--background-color);
 	margin: 0;
 	padding: 8px;
@@ -20,7 +20,7 @@ body {
 }
 
 a {
-	color: rgb(0,100,200);
+	color: rgb(0, 100, 200);
 	text-decoration: none;
 }
 
@@ -29,14 +29,14 @@ a:hover {
 }
 
 a:visited {
-	color: rgb(0,80,160);
+	color: rgb(0, 80, 160);
 }
 
 label {
 	display: block;
 }
 
-input, button, select, textarea {
+input, select, textarea {
 	font-family: inherit;
 	font-size: inherit;
 	-webkit-padding: 0.4em 0;
@@ -52,13 +52,23 @@ input:disabled {
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
+	color: var(--background-color);
+	background-color: var(--main-color);
 	outline: none;
+	box-sizing: border-box;
+
+	font-size: 16px;
+
+	padding: 0.4em;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
 }
 
 button:disabled {
-	color: #999;
+	background-color: var(--background-color);
+	color: var(--secondary-color);
+	cursor: inherit;
 }
 
 button:not(:disabled):active {
@@ -68,4 +78,3 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
-

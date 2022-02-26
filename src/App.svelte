@@ -90,7 +90,11 @@
 
 <main>
 	<h1>Hex-Life</h1>
-	<p>Game of Life, with hex cells. Click in the grid to place some cells, then click play and watch life unfold. Or try one of the examples from the gallery.</p>
+	<p>
+		Game of Life, with hex cells. Click in the grid to place some cells,
+		then click play and watch life unfold. Or try one of the examples from
+		the gallery.
+	</p>
 	<SpacerVertical size="medium" />
 
 	<Life
@@ -132,7 +136,16 @@
 	</div>
 </main>
 
+<footer>
+	<a href="https://synvinkel.org">synvinkel.org</a>
+</footer>
+
 <style>
+	footer {
+		margin: 0 auto;
+		width: 700px;
+		margin-top: 50px;
+	}
 	main {
 		margin: 0 auto;
 		width: 700px;
